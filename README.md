@@ -1,6 +1,24 @@
 # Pipeline Overview
-1. Preprocessing (parse, format datatype, ...)
-2. Vectorizing Logs (TF-IDF)
-3. TrunvatedSVD (Optional)
-4. Reducing dimension (UMAP)
-5. Anomaly detection: HDBSCAN/Isolation Forest
+## Supervised Pipeline
+1. Text feature (EventTemplate): Vectorization using TF-IDF
+2. One-Hot Encoding
+3. Combine features
+4. Classification: SVM
+5. Evaluation: Precision, Recall, F1-score
+
+## Unsupervised Pipeline
+1. Text feature (EventTemplate): Vectorization using TF-IDF
+2. Dimension Reduction: SVD
+2. One-Hot Encoding
+3. Combine feature
+4. Anomaly Detection: Isolation Forest
+5. Evaluation: 
+
+# Running MLflow
+```sh
+mlflow models serve \
+  -m runs:/{runs_id}/model \
+  -p 1234 \
+  --host 0.0.0.0 \
+  --env-manager local
+```

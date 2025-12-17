@@ -1,0 +1,19 @@
+services:
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:latest
+    container_name: mlflow
+    user: root
+    ports:
+      - "5000:5000"
+    volumes:
+      - mlflow_db:/mlflow/db
+      - mlflow_artifacts:/tmp/mlflow
+    command: >
+      mlflow server
+      --backend-store-uri sqlite:////mlflow/db/mlflow.db
+      --default-artifact-root /tmp/mlflow
+      --host 0.0.0.0
+
+volumes:
+  mlflow_db:
+  mlflow_artifacts:
