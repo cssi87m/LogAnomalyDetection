@@ -5,11 +5,10 @@ TFIDF_CONFIG = {
 }
 
 MODEL_CONFIG = {
-    "C": 1.0,
-    "loss": "squared_hinge",
-    "class_weight": "balanced",
-    "max_iter": 5000
+    "C": 1.0,          # Regularization
+    "kernel": "rbf",   # Kernel type
+    "class_weight": "balanced",    
 }
 
-EXPERIMENT_NAME = "log_tfidf_pipeline"
+EXPERIMENT_NAME = "Anomaly Detection Pipeline"
 TRACKING_URI = "http://127.0.0.1:5000"

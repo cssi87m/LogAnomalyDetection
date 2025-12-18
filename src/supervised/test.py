@@ -7,7 +7,8 @@ from sklearn.metrics import (
     f1_score,
     recall_score,
     precision_score,
-    classification_report
+    classification_report,
+    accuracy_score
 )
 
 from config import TRACKING_URI
@@ -53,13 +54,18 @@ f1_weighted = f1_score(y_test, y_pred, average="weighted")
 recall_anomaly = recall_score(y_test, y_pred, pos_label=1)
 precision_anomaly = precision_score(y_test, y_pred, pos_label=1)
 
+accuracy_anomaly = accuracy_score(y_test, y_pred)
 # =========================
 # Output
 # =========================
-print("TEST f1_macro:", f1_macro)
-print("TEST f1_weighted:", f1_weighted)
-print("TEST recall_anomaly:", recall_anomaly)
-print("TEST precision_anomaly:", precision_anomaly)
-
-print("\nClassification report:")
-print(classification_report(y_test, y_pred))
+with mlflow.start_run(run_name="test_linearSVC", nested=True):
+    mlflow.log_metric("test_f1_macro", f1_macro)
+    mlflow.log_metric("test_f1_weighted", f1_weighted)
+    mlflow.log_metric("test_recall_anomaly", recall_anomaly)
+    mlflow.log_metric("test_precision_anomaly", precision_anomaly)
+    mlflow.log_metric("test_accuracy_anomaly", accuracy_anomaly)
+    
+    mlflow.log_text(
+        classification_report(y_test, y_pred),
+        "test_classification_report.txt"
+    )

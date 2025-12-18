@@ -7,7 +7,8 @@ from sklearn.metrics import (
     classification_report,
     f1_score,
     recall_score,
-    precision_score
+    precision_score,
+    accuracy_score
 )
 
 from config import (
@@ -52,6 +53,7 @@ f1_weighted = f1_score(y_val, y_pred, average="weighted")
 recall_anomaly = recall_score(y_val, y_pred, pos_label=1)
 precision_anomaly = precision_score(y_val, y_pred, pos_label=1)
 
+accuracy_anomaly = accuracy_score(y_val, y_pred)
 # =========================
 # Log to MLflow
 # =========================
@@ -60,7 +62,8 @@ with mlflow.start_run(run_name="val_linearSVC", nested=True):
     mlflow.log_metric("val_f1_weighted", f1_weighted)
     mlflow.log_metric("val_recall_anomaly", recall_anomaly)
     mlflow.log_metric("val_precision_anomaly", precision_anomaly)
-
+    mlflow.log_metric("val_accuracy_anomaly", accuracy_anomaly)
+    
     mlflow.log_text(
         classification_report(y_val, y_pred),
         "val_classification_report.txt"
