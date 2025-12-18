@@ -1,5 +1,3 @@
-# src/config.py
-
 TFIDF_CONFIG = {
     "max_features": 5000,
     "ngram_range": (1, 2),
@@ -7,8 +5,10 @@ TFIDF_CONFIG = {
 }
 
 MODEL_CONFIG = {
-    "max_iter": 1000,
-    "n_jobs": -1,
+    "C": 1.0,
+    "loss": "squared_hinge",
+    "class_weight": "balanced",
+    "max_iter": 5000
 }
 
 EXPERIMENT_NAME = "log_tfidf_pipeline"
